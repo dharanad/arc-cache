@@ -1,0 +1,21 @@
+#include "cache.h"
+#include <vector>
+#include <map>
+
+template <typename KeyType, typename ValueType>
+class LruCache : public Cache<KeyType, ValueType>
+{
+public:
+    LruCache(size_t capacity);
+    bool put(KeyType key, ValueType value) override;
+    std::optional<ValueType> get(KeyType key) override;
+    std::optional<ValueType> invalidate(KeyType key) override;
+    std::size_t size() override;
+    std::size_t capacity() override;
+
+private:
+    std::vector<KeyType> recentlyUsedList_;
+    std::map<KeyType, ValueType> map_;
+    size_t capacity_;
+    size_t size_;
+};
