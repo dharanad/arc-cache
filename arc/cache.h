@@ -7,7 +7,7 @@ class Cache
 public:
     virtual ~Cache() = default;
     /// @brief Add a key value entry into the Cache
-    virtual bool put(KeyType key, ValueType value) = 0;
+    virtual void put(KeyType key, ValueType value) = 0;
     /// @brief Returns the value associated with the key if present
     virtual std::optional<ValueType> get(KeyType key) = 0;
     /// @brief Rmeove entry specified by the key, if present

@@ -5,9 +5,13 @@ template <typename KeyType, typename ValueType>
 LruCache<KeyType, ValueType>::LruCache(size_t capacity) : capacity_{capacity}, size_{0} {}
 
 template <typename KeyType, typename ValueType>
-bool LruCache<KeyType, ValueType>::put(KeyType key, ValueType value)
+LruCache<KeyType, ValueType>::LruCache(size_t capacity, std::function<void(KeyType, ValueType)> evictionHandler) : capacity_{capacity}, size_{0}, evictionHandler_{evictionHandler}
 {
-    return false;
+}
+
+template <typename KeyType, typename ValueType>
+void LruCache<KeyType, ValueType>::put(KeyType key, ValueType value)
+{
 }
 
 template <typename KeyType, typename ValueType>
