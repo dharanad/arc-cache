@@ -1,1 +1,1 @@
-add_executable(arc main.cpp lru.cpp)
+add_executable(arc main.cpp lru.cpp arc.cpp)
