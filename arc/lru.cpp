@@ -73,6 +73,9 @@ void LruCache<KeyType, ValueType>::evict()
     auto victim = this->recentlyUsedList_.front();
     this->map_.erase(victim.first);
     this->recentlyUsedList_.pop_front();
+    if(this->evictionHandler_) {
+        this->evictionHandler_(victim.first, victim.second);
+    }
     this->size_--;
 }
 
