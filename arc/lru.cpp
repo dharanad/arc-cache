@@ -1,12 +1,13 @@
 #include "lru.h"
 #include <string>
 #include <iostream>
+#include <utility>
 
 template <typename KeyType, typename ValueType>
 LruCache<KeyType, ValueType>::LruCache(size_t capacity) : capacity_{capacity}, size_{0} {}
 
 template <typename KeyType, typename ValueType>
-LruCache<KeyType, ValueType>::LruCache(size_t capacity, std::function<void(KeyType, ValueType)> evictionHandler) : capacity_{capacity}, size_{0}, evictionHandler_{evictionHandler}
+LruCache<KeyType, ValueType>::LruCache(size_t capacity, std::function<void(KeyType, ValueType)> evictionHandler) : capacity_{capacity}, size_{0}, evictionHandler_{std::move(evictionHandler)}
 {
 }
 
@@ -64,7 +65,7 @@ void LruCache<KeyType, ValueType>::insert(KeyType key, ValueType value)
     auto element = std::make_pair(key, value);
     this->recentlyUsedList_.push_back(element);
     this->map_[element.first] = std::prev(this->recentlyUsedList_.end());
-    this->size_++;
+    ++this->size_;
 }
 
 template <typename KeyType, typename ValueType>
@@ -76,7 +77,7 @@ void LruCache<KeyType, ValueType>::evict()
     if(this->evictionHandler_) {
         this->evictionHandler_(victim.first, victim.second);
     }
-    this->size_--;
+    --this->size_;
 }
 
 template class LruCache<int, int>;

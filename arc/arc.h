@@ -1,10 +1,10 @@
 #include "cache.h"
 
-template <typename KeyValue, typename ValueType>
-class Arc : public Cache<KeyValue, ValueType>
+template <typename KeyType, typename ValueType>
+class Arc : public Cache<KeyType, ValueType>
 {
 public:
-    Arc(std::size_t size);
+    Arc(std::size_t capacity);
     void put(KeyType key, ValueType value) override;
     std::optional<ValueType> get(KeyType key) override;
     std::size_t size() override;
